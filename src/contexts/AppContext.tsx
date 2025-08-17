@@ -55,11 +55,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   };
   
   const addIssue = (issue: Omit<Issue, 'id'>) => {
-    const newIssue = {
+    const newIssue: Issue = {
       ...issue,
-      id: Math.max(...issues.map(i => i.id)) + 1,
+      id: issues.length > 0 ? Math.max(...issues.map(i => i.id)) + 1 : 1,
     };
     setIssues(prev => [newIssue, ...prev]);
+    
+    // Log for debugging
+    console.log('New issue added:', newIssue);
+    console.log('Updated issues array:', [newIssue, ...issues]);
   };
   
   const addFeedback = (newFeedback: Omit<Feedback, 'id'>) => {

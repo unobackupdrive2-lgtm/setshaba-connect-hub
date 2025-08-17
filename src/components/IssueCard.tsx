@@ -29,35 +29,43 @@ export const IssueCard: React.FC<IssueCardProps> = ({
 
   return (
     <Card 
-      className={`cursor-pointer transition-all duration-200 hover:shadow-lg hover:-translate-y-1 ${
-        issue.isUrgent ? 'border-urgent shadow-urgent animate-fade-in' : 'shadow-card'
+      className={`cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-0 ${
+        issue.isUrgent 
+          ? 'bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 shadow-lg shadow-red-200 dark:shadow-red-900/20' 
+          : 'bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-700 shadow-lg hover:shadow-xl'
       }`}
       onClick={onClick}
     >
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">{categoryIcons[issue.category]}</span>
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <span className="text-2xl">{categoryIcons[issue.category]}</span>
+            </div>
             <div>
-              <CardTitle className={`text-lg ${issue.isUrgent ? 'text-urgent' : ''}`}>
+              <CardTitle className={`text-xl font-bold ${issue.isUrgent ? 'text-red-700 dark:text-red-300' : 'text-gray-900 dark:text-white'}`}>
                 {issue.title}
               </CardTitle>
               <div className="flex items-center gap-2 mt-1">
-                <MapPin className="h-3 w-3 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">{issue.location}</span>
+                <MapPin className="h-4 w-4 text-gray-500" />
+                <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">{issue.location}</span>
               </div>
             </div>
           </div>
           <div className="flex flex-col items-end gap-2">
-            <Button 
-              variant="status" 
-              size="sm"
-              className={`border-${statusColors[issue.status]} text-${statusColors[issue.status]}`}
+            <Badge 
+              className={`px-3 py-1 text-xs font-semibold ${
+                issue.status === 'Resolved' 
+                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' 
+                  : issue.status === 'In Progress'
+                  ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
+                  : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+              }`}
             >
               {issue.status}
-            </Button>
+            </Badge>
             {issue.isUrgent && (
-              <Badge variant="destructive" className="bg-urgent">
+              <Badge className="bg-red-500 text-white animate-pulse">
                 Urgent
               </Badge>
             )}
@@ -66,7 +74,7 @@ export const IssueCard: React.FC<IssueCardProps> = ({
       </CardHeader>
       
       <CardContent>
-        <p className="text-sm text-muted-foreground mb-4">{issue.description}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{issue.description}</p>
         
         {showProgress && (
           <div className="space-y-2">
@@ -75,8 +83,11 @@ export const IssueCard: React.FC<IssueCardProps> = ({
               <span className="text-sm text-muted-foreground">{issue.progress}%</span>
             </div>
             <Progress 
-              value={issue.progress} 
-              className="h-2"
+              value={issue.progress}
+              className={`h-3 ${
+                issue.progress === 100 ? 'bg-green-100' : 
+                issue.progress > 50 ? 'bg-yellow-100' : 'bg-blue-100'
+              }`}
             />
           </div>
         )}

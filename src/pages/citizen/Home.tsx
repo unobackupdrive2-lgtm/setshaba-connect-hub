@@ -6,8 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, TrendingUp, CheckCircle, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroBanner from "@/assets/hero-banner.jpg";
-
 export const Home: React.FC = () => {
   const { issues, announcements } = useApp();
   
@@ -26,65 +24,80 @@ export const Home: React.FC = () => {
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       <div className="max-w-content mx-auto px-4 py-6 space-y-8">
         {/* Hero Section */}
-        <div className="relative overflow-hidden rounded-xl">
-          <div
-            className="h-64 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${heroBanner})` }}
-          >
-            <div className="absolute inset-0 bg-primary/80 flex items-center justify-center">
-              <div className="text-center text-white">
-                <h1 className="text-4xl font-bold mb-2">
-                  Welcome to Setshaba Connect
-                </h1>
-                <p className="text-xl opacity-90">
-                  Bridging the gap between citizens and government
-                </p>
-                <Button asChild variant="civic" size="lg" className="mt-4">
-                  <Link to="/report">Report an Issue</Link>
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-accent to-primary/80 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative px-8 py-16 text-center text-white">
+            <div className="mx-auto max-w-2xl">
+              <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">
+                Welcome to Setshaba Connect
+              </h1>
+              <p className="text-xl mb-8 text-white/90 leading-relaxed">
+                Your voice matters. Report issues, track progress, and help build a better community together.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 shadow-lg transform hover:scale-105 transition-all duration-200">
+                  <Link to="/report" className="flex items-center gap-2">
+                    <AlertTriangle className="h-5 w-5" />
+                    Report an Issue
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm">
+                  <Link to="/issues">View All Issues</Link>
                 </Button>
               </div>
             </div>
           </div>
+          {/* Decorative elements */}
+          <div className="absolute top-4 right-4 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+          <div className="absolute bottom-4 left-4 w-24 h-24 bg-accent/20 rounded-full blur-lg"></div>
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card className="shadow-card">
-            <CardContent className="flex items-center p-4">
-              <AlertTriangle className="h-8 w-8 text-status-reported mr-3" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20">
+            <CardContent className="flex items-center p-6">
+              <div className="p-3 bg-blue-500 rounded-xl mr-4">
+                <AlertTriangle className="h-6 w-6 text-white" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">{stats.total}</p>
-                <p className="text-xs text-muted-foreground">Total Issues</p>
+                <p className="text-3xl font-bold text-blue-700 dark:text-blue-300">{stats.total}</p>
+                <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">Total Issues</p>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="shadow-card">
-            <CardContent className="flex items-center p-4">
-              <Clock className="h-8 w-8 text-urgent mr-3" />
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20">
+            <CardContent className="flex items-center p-6">
+              <div className="p-3 bg-red-500 rounded-xl mr-4">
+                <Clock className="h-6 w-6 text-white" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">{stats.urgent}</p>
-                <p className="text-xs text-muted-foreground">Urgent</p>
+                <p className="text-3xl font-bold text-red-700 dark:text-red-300">{stats.urgent}</p>
+                <p className="text-sm text-red-600 dark:text-red-400 font-medium">Urgent</p>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="shadow-card">
-            <CardContent className="flex items-center p-4">
-              <TrendingUp className="h-8 w-8 text-status-progress mr-3" />
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20">
+            <CardContent className="flex items-center p-6">
+              <div className="p-3 bg-yellow-500 rounded-xl mr-4">
+                <TrendingUp className="h-6 w-6 text-white" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">{stats.inProgress}</p>
-                <p className="text-xs text-muted-foreground">In Progress</p>
+                <p className="text-3xl font-bold text-yellow-700 dark:text-yellow-300">{stats.inProgress}</p>
+                <p className="text-sm text-yellow-600 dark:text-yellow-400 font-medium">In Progress</p>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="shadow-card">
-            <CardContent className="flex items-center p-4">
-              <CheckCircle className="h-8 w-8 text-success mr-3" />
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20">
+            <CardContent className="flex items-center p-6">
+              <div className="p-3 bg-green-500 rounded-xl mr-4">
+                <CheckCircle className="h-6 w-6 text-white" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">{stats.resolved}</p>
-                <p className="text-xs text-muted-foreground">Resolved</p>
+                <p className="text-3xl font-bold text-green-700 dark:text-green-300">{stats.resolved}</p>
+                <p className="text-sm text-green-600 dark:text-green-400 font-medium">Resolved</p>
               </div>
             </CardContent>
           </Card>

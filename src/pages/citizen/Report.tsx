@@ -99,7 +99,6 @@ export const Report: React.FC = () => {
       category: formData.category as Category,
       location: formData.location,
       description: formData.description,
-      imageUrl: formData.imageUrl,
       status: "Reported" as const,
       progress: 0,
       timeline: [{
@@ -117,7 +116,7 @@ export const Report: React.FC = () => {
     
     toast({
       title: "Report Submitted Successfully",
-      description: `Your tracking ID is: ${trackingId}`,
+      description: `Your tracking ID is: ${trackingId}. You can now view your report in the Issues section.`,
     });
 
     // Reset form
@@ -139,16 +138,18 @@ export const Report: React.FC = () => {
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Send className="h-5 w-5 text-primary" />
+          <CardHeader className="bg-gradient-to-r from-primary/5 to-accent/5 border-b">
+            <CardTitle className="flex items-center gap-3 text-2xl">
+              <div className="p-2 bg-primary rounded-lg">
+                <Send className="h-6 w-6 text-white" />
+              </div>
               Submit New Report
             </CardTitle>
             <CardDescription>
               Provide details about the issue you'd like to report
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-8">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="title">Issue Title *</Label>
@@ -158,6 +159,7 @@ export const Report: React.FC = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
                   placeholder="Brief description of the issue"
                   required
+                  className="h-12"
                 />
               </div>
 
@@ -167,7 +169,7 @@ export const Report: React.FC = () => {
                   <SelectTrigger>
                     <SelectValue placeholder="Select issue category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     <SelectItem value="Water">💧 Water</SelectItem>
                     <SelectItem value="Electricity">⚡ Electricity</SelectItem>
                     <SelectItem value="Roads">🚧 Roads</SelectItem>
@@ -186,14 +188,14 @@ export const Report: React.FC = () => {
                     onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
                     placeholder="Street address or area"
                     required
-                    className="flex-1"
+                    className="flex-1 h-12"
                   />
                   <Button 
                     type="button" 
                     variant="outline" 
                     onClick={handleUseCurrentLocation}
                     disabled={isLocating}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 h-12 px-6"
                   >
                     {isLocating ? (
                       <Locate className="h-4 w-4 animate-spin" />
@@ -215,7 +217,7 @@ export const Report: React.FC = () => {
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Detailed description of the issue"
-                  rows={4}
+                  rows={5}
                   required
                 />
               </div>
@@ -228,13 +230,13 @@ export const Report: React.FC = () => {
                     value={formData.imageUrl}
                     onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
                     placeholder="Photo URL or click camera to upload"
-                    className="flex-1"
+                    className="flex-1 h-12"
                   />
                   <Button 
                     type="button" 
                     variant="outline" 
                     onClick={handlePhotoUpload}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 h-12 px-6"
                   >
                     <Camera className="h-4 w-4" />
                     Upload
@@ -254,7 +256,7 @@ export const Report: React.FC = () => {
                 )}
               </div>
 
-              <Button type="submit" className="w-full" size="lg">
+              <Button type="submit" className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-primary to-accent hover:from-primary-hover hover:to-accent/90 shadow-lg" size="lg">
                 <Send className="h-4 w-4 mr-2" />
                 Submit Report
               </Button>
